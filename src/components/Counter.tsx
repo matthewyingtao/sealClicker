@@ -1,25 +1,11 @@
-import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
-import { incrementByAmount } from "../store/slices/counterSlice";
+import React from "react";
+import { useGame } from "../hooks/gameHooks";
+import { useAppSelector } from "../hooks/storeHooks";
 
 export default function Counter() {
-	const dispatch = useAppDispatch();
-	const { count, countPerSecond } = useAppSelector((state) => {
-		return {
-			count: state.counter.value,
-			countPerSecond: state.buildings.reduce(
-				(prev, curr) => prev + curr.count * curr.building.productionSpeed,
-				0
-			),
-		};
-	});
+	useGame();
 
-	const addCount = () => dispatch(incrementByAmount(countPerSecond));
-
-	useEffect(() => {
-		const tick = setInterval(addCount, 50);
-		return () => clearInterval(tick);
-	}, [addCount]);
+	const count = useAppSelector((state) => state.counter.value);
 
 	return (
 		<div style={{ display: "flex", flexDirection: "column" }}>
