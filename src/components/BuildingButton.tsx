@@ -1,4 +1,3 @@
-import React from "react";
 import { Building } from "../data/buildings";
 import { useAppDispatch } from "../hooks/storeHooks";
 import { purchase } from "../store/slices/buildingSlice";
