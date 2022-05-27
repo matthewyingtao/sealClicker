@@ -11,7 +11,7 @@ export default function BuildingButton({ building }: { building: Building }) {
 		<div key={name}>
 			<p>{name}</p>
 			{/* <img src={icon} alt="" /> */}
-			<button onClick={() => dispatch(purchase({ id }))}>buy {name}</button>
+			<button onClick={() => dispatch(purchase(id))}>buy {name}</button>
 		</div>
 	);
 }

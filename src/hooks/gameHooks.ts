@@ -1,21 +1,23 @@
 import { useEffect } from "react";
 import { incrementByAmount } from "../store/slices/counterSlice";
-import { AppDispatch } from "../store/store";
-import { useBuildings } from "./gameHooks/useBuildings";
-import { useAppSelector } from "./storeHooks";
+import { useAppDispatch, useAppSelector } from "./storeHooks";
 
-export const useGame = (dispatch: AppDispatch): number => {
-	const count = useAppSelector((state) => state.counter.value);
-	const building = useBuildings();
+export const useGame = (): number => {
+	const dispatch = useAppDispatch();
+	const { count, countPerSecond } = useAppSelector((state) => {
+		return {
+			count: state.counter.value,
+			countPerSecond: state.buildings.reduce(
+				(prev, curr) => prev + curr.count * curr.building.productionSpeed,
+				0
+			),
+		};
+	});
+
+	const addCount = () => dispatch(incrementByAmount(countPerSecond));
 
 	useEffect(() => {
-		function tick(dispatch: AppDispatch, incrementByAmount: Function) {
-			setTimeout(() => {
-				dispatch(incrementByAmount(building));
-				tick(dispatch, incrementByAmount);
-			}, 100);
-		}
-		tick(dispatch, incrementByAmount);
+		setInterval(addCount, 50);
 	}, []);
 
 	return count;

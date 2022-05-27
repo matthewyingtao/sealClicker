@@ -6,10 +6,6 @@ export interface BuildingState {
 	count: number;
 }
 
-type SingleBuildingPurchase = {
-	id: number;
-};
-
 type MultiBuildingPurchase = {
 	id: number;
 	amount: number;
@@ -21,14 +17,14 @@ const initialState: BuildingState[] = buildings.map((building) => ({
 }));
 
 export const buildingSlice = createSlice({
-	name: "counter",
+	name: "buildings",
 	initialState,
 	reducers: {
-		purchase: (state, action: PayloadAction<SingleBuildingPurchase>) => {
-			state[action.payload.id].count += 1;
+		purchase: (state, action: PayloadAction<number>) => {
+			state[action.payload].count += 1;
 		},
-		sell: (state, action: PayloadAction<SingleBuildingPurchase>) => {
-			state[action.payload.id].count -= 1;
+		sell: (state, action: PayloadAction<number>) => {
+			state[action.payload].count -= 1;
 		},
 		buyAmount: (state, action: PayloadAction<MultiBuildingPurchase>) => {
 			state[action.payload.id].count += action.payload.amount;
