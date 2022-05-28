@@ -1,9 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { costMultiplier } from "../../config/config";
 import { Building, buildings } from "../../data/buildings";
 
-export interface BuildingState {
-	building: Building;
+export type BuildingState = {
 	quantity: number;
+	cost: number;
+};
+
+export interface BuildingWithState {
+	building: Building;
+	state: BuildingState;
 }
 
 type MultiBuildingPurchase = {
@@ -11,9 +17,9 @@ type MultiBuildingPurchase = {
 	amount: number;
 };
 
-const initialState: BuildingState[] = buildings.map((building) => ({
+const initialState: BuildingWithState[] = buildings.map((building) => ({
 	building,
-	quantity: 0,
+	state: { quantity: 0, cost: building.baseCost },
 }));
 
 export const buildingSlice = createSlice({
@@ -21,17 +27,20 @@ export const buildingSlice = createSlice({
 	initialState,
 	reducers: {
 		purchase: (state, action: PayloadAction<number>) => {
-			state[action.payload].quantity += 1;
+			state[action.payload].state.quantity += 1;
+			state[action.payload].state.cost =
+				state[action.payload].building.baseCost *
+				Math.pow(costMultiplier, state[action.payload].state.quantity);
 		},
-		sell: (state, action: PayloadAction<number>) => {
-			state[action.payload].quantity -= 1;
-		},
-		buyAmount: (state, action: PayloadAction<MultiBuildingPurchase>) => {
-			state[action.payload.id].quantity += action.payload.amount;
+		purchaseAmount: (state, action: PayloadAction<MultiBuildingPurchase>) => {
+			state[action.payload.id].state.quantity += action.payload.amount;
+			state[action.payload.id].state.cost =
+				state[action.payload.id].building.baseCost *
+				Math.pow(costMultiplier, state[action.payload.id].state.quantity);
 		},
 	},
 });
 
-export const { purchase, sell, buyAmount } = buildingSlice.actions;
+export const { purchase, purchaseAmount } = buildingSlice.actions;
 
 export const buildingReducer = buildingSlice.reducer;

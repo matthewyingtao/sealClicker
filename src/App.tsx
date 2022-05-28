@@ -3,12 +3,14 @@ import sealImage from "./assets/seal.png";
 import BuildingButton from "./components/BuildingButton";
 import Counter from "./components/Counter";
 import { useGame } from "./hooks/gameHooks";
+import { useBuildings } from "./hooks/gameHooks/useBuildings";
 import { useAppDispatch, useAppSelector } from "./hooks/storeHooks";
 import { changeCountBy } from "./store/slices/counterSlice";
 
 function App() {
+	useGame();
+	const { countPerSecond } = useBuildings();
 	const dispatch = useAppDispatch();
-	const { countPerSecond } = useGame();
 
 	const buildings = useAppSelector((state) => state.buildings);
 
@@ -16,18 +18,14 @@ function App() {
 		<div className="App">
 			<header className="App-header">
 				<img
-					onClick={() => dispatch(changeCountBy(5))}
+					onClick={() => dispatch(changeCountBy(1))}
 					src={sealImage}
-					alt=""
+					alt="seal"
 				/>
 				<Counter />
 				<p>you are making {countPerSecond} per second</p>
-				{buildings.map(({ building, quantity }) => (
-					<BuildingButton
-						key={building.id}
-						building={building}
-						quantity={quantity}
-					/>
+				{buildings.map(({ building, state }) => (
+					<BuildingButton key={building.id} building={building} state={state} />
 				))}
 			</header>
 		</div>
