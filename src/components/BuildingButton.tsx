@@ -43,13 +43,19 @@ export default function BuildingButton({
 	};
 
 	return (
-		<div key={name}>
-			<p>{name}</p>
-			<img src={icon} alt={`purchase ${name}`} />
-			<button onClick={purchaseBuilding}>
-				buy {name} for ${Math.round(state.cost)} ({state.quantity})
+		<div key={name} className="shopItem">
+			<button className="buyOne" onClick={purchaseBuilding}>
+				<img src={icon} alt={`purchase ${name}`} />
+				<div className="buyText">
+					<p>{name}</p>
+					<p>
+						buy {name} for ${Math.round(state.cost)} ({state.quantity})
+					</p>
+				</div>
 			</button>
-			<button onClick={purchaseMaxBuilding}>buy x{maxBuy}</button>
+			<button className="buyMany" onClick={purchaseMaxBuilding}>
+				buy x{maxBuy}
+			</button>
 		</div>
 	);
 }

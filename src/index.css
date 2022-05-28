@@ -1,13 +1,85 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+	--primary-50: hsl(210, 10%, 10%);
+	--primary-100: hsl(210, 24%, 11%);
+	--primary-200: hsl(211, 29%, 19%);
+	--primary-700: hsl(210, 80%, 85%);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+body {
+	background: var(--primary-100);
+	color: var(--primary-700);
+	font-family: "Fredoka", sans-serif;
+}
+
+.pageWrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.sealArea {
+	display: flex;
+	flex-direction: column;
+	gap: 4rem;
+	margin: auto;
+}
+
+.countHeader {
+	text-align: center;
+}
+
+.countPerSecondDisplay {
+	font-size: 1.2rem;
+}
+
+.countDisplay {
+	font-size: 8rem;
+	line-height: 1;
+}
+
+.shopList {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+	width: 100%;
+	padding: 2rem;
+}
+
+.shopItem {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 8rem;
+	border-radius: 1.5rem;
+	overflow: hidden;
+}
+
+.shopItem img {
+	height: 6rem;
+	width: 6rem;
+	object-fit: contain;
+}
+
+.buyOne,
+.buyMany {
+	background: var(--primary-200);
+	color: white;
+	border: none;
+}
+
+.buyOne {
+	padding: 1.5rem;
+	display: flex;
+}
+
+.buyText {
+	margin: auto;
+}
+
+.buyMany {
+	padding: 1.5rem;
+	border-left: solid var(--primary-100) 2px;
+}
+
+.buyOne:active,
+.buyMany:active {
+	background-color: var(--primary-50);
 }

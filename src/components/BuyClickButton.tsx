@@ -39,13 +39,17 @@ export default function BuyClickButton() {
 	};
 
 	return (
-		<div>
-			<p>Upgrade Click</p>
-			<img src={clickIcon} alt={`purchase ${name}`} />
-			<button onClick={upgradeClick}>
-				upgrade click for ${Math.round(cost)}
+		<div className="shopItem">
+			<button className="buyOne" onClick={upgradeClick}>
+				<img src={clickIcon} alt={`purchase ${name}`} />
+				<div className="buyText">
+					<p>Upgrade Click</p>
+					<p>upgrade click for ${Math.round(cost)}</p>
+				</div>
 			</button>
-			<button onClick={maxUpgradeClick}>buy x{maxBuy}</button>
+			<button className="buyMany" onClick={maxUpgradeClick}>
+				buy x{maxBuy}
+			</button>
 		</div>
 	);
 }

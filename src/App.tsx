@@ -1,4 +1,3 @@
-import "./App.css";
 import sealImage from "./assets/seal.png";
 import BuildingButton from "./components/BuildingButton";
 import BuyClickButton from "./components/BuyClickButton";
@@ -19,21 +18,28 @@ function App() {
 	}));
 
 	return (
-		<div className="App">
-			<header className="App-header">
+		<main className="pageWrapper">
+			<section className="sealArea">
+				<div className="countHeader">
+					<p className="countPerSecondDisplay">
+						you are making {countPerSecond} seals per second
+					</p>
+					<h1 className="countDisplay">{count.toFixed(0)}</h1>
+				</div>
 				<img
 					onClick={() => dispatch(changeCountBy(clickPower))}
 					src={sealImage}
 					alt="seal"
+					className="seal"
 				/>
-				<p>{count.toFixed(0)}</p>
-				<p>you are making {countPerSecond} per second</p>
+			</section>
+			<section className="shopList">
 				<BuyClickButton />
 				{buildings.map(({ building, state }) => (
 					<BuildingButton key={building.id} building={building} state={state} />
 				))}
-			</header>
-		</div>
+			</section>
+		</main>
 	);
 }
 
