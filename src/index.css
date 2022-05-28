@@ -9,6 +9,7 @@ body {
 	background: var(--primary-100);
 	color: var(--primary-700);
 	font-family: "Fredoka", sans-serif;
+	overflow: hidden;
 }
 
 .pageWrapper {
@@ -19,12 +20,24 @@ body {
 .sealArea {
 	display: flex;
 	flex-direction: column;
-	gap: 4rem;
+	position: relative;
+	padding-top: 4rem;
+	height: 100%;
+	width: 100%;
+}
+
+.seal {
 	margin: auto;
+	padding-top: 4rem;
+	width: 20rem;
 }
 
 .countHeader {
 	text-align: center;
+	position: absolute;
+	top: 2rem;
+	left: 0;
+	right: 0;
 }
 
 .countPerSecondDisplay {
@@ -42,6 +55,8 @@ body {
 	gap: 2rem;
 	width: 100%;
 	padding: 2rem;
+	overflow: auto;
+	height: 100%;
 }
 
 .shopItem {
@@ -49,7 +64,6 @@ body {
 	display: grid;
 	grid-template-columns: 1fr 8rem;
 	border-radius: 1.5rem;
-	overflow: hidden;
 }
 
 .shopItem img {
@@ -68,6 +82,8 @@ body {
 .buyOne {
 	padding: 1.5rem;
 	display: flex;
+	border-top-left-radius: 1.5rem;
+	border-bottom-left-radius: 1.5rem;
 }
 
 .buyText {
@@ -77,6 +93,8 @@ body {
 .buyMany {
 	padding: 1.5rem;
 	border-left: solid var(--primary-100) 2px;
+	border-top-right-radius: 1.5rem;
+	border-bottom-right-radius: 1.5rem;
 }
 
 .buyOne:active,

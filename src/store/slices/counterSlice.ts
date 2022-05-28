@@ -24,6 +24,7 @@ export const counterSlice = createSlice({
 		},
 		increaseClickPower: (state) => {
 			state.clickPower = (state.clickPower + 1) * 1.1;
+			state.clickUpgradeCost *= 1.1;
 		},
 	},
 });
