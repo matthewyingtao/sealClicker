@@ -3,11 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface CounterState {
 	value: number;
 	clickPower: number;
+	clickUpgradeCost: number;
 }
 
 const initialState: CounterState = {
 	value: 0,
 	clickPower: 1,
+	clickUpgradeCost: 50,
 };
 
 export const counterSlice = createSlice({
@@ -17,8 +19,11 @@ export const counterSlice = createSlice({
 		changeCountBy: (state, action: PayloadAction<number>) => {
 			state.value += action.payload;
 		},
+		click: (state) => {
+			state.value += state.clickPower;
+		},
 		increaseClickPower: (state) => {
-			state.clickPower *= 1.1;
+			state.clickPower = (state.clickPower + 1) * 1.1;
 		},
 	},
 });
