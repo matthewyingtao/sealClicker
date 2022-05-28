@@ -3,7 +3,7 @@ import { Building, buildings } from "../../data/buildings";
 
 export interface BuildingState {
 	building: Building;
-	count: number;
+	quantity: number;
 }
 
 type MultiBuildingPurchase = {
@@ -13,7 +13,7 @@ type MultiBuildingPurchase = {
 
 const initialState: BuildingState[] = buildings.map((building) => ({
 	building,
-	count: 0,
+	quantity: 0,
 }));
 
 export const buildingSlice = createSlice({
@@ -21,13 +21,13 @@ export const buildingSlice = createSlice({
 	initialState,
 	reducers: {
 		purchase: (state, action: PayloadAction<number>) => {
-			state[action.payload].count += 1;
+			state[action.payload].quantity += 1;
 		},
 		sell: (state, action: PayloadAction<number>) => {
-			state[action.payload].count -= 1;
+			state[action.payload].quantity -= 1;
 		},
 		buyAmount: (state, action: PayloadAction<MultiBuildingPurchase>) => {
-			state[action.payload.id].count += action.payload.amount;
+			state[action.payload.id].quantity += action.payload.amount;
 		},
 	},
 });

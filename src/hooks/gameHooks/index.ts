@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { incrementByAmount } from "../../store/slices/counterSlice";
+import { changeCountBy } from "../../store/slices/counterSlice";
 import { useAppDispatch, useAppSelector } from "../storeHooks";
 
 export const useGame = () => {
@@ -7,13 +7,13 @@ export const useGame = () => {
 
 	const countPerSecond = useAppSelector((state) => {
 		return state.buildings.reduce(
-			(prev, curr) => prev + curr.count * curr.building.productionSpeed,
+			(prev, curr) => prev + curr.quantity * curr.building.productionSpeed,
 			0
 		);
 	});
 
 	const addCount = useCallback(
-		() => dispatch(incrementByAmount(countPerSecond / 20)),
+		() => dispatch(changeCountBy(countPerSecond / 20)),
 		[countPerSecond]
 	);
 
