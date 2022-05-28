@@ -15,10 +15,12 @@ export default function BuyClickButton() {
 
 	const canPurchase = count >= cost;
 
-	const maxBuy = Math.floor(
-		Math.log(1 - (count / cost) * (1 - costMultiplier)) /
-			Math.log(costMultiplier)
-	);
+	const maxBuy = canPurchase
+		? Math.floor(
+				Math.log(1 - (count / cost) * (1 - costMultiplier)) /
+					Math.log(costMultiplier)
+		  )
+		: 0;
 
 	const upgradeClick = () => {
 		if (!canPurchase) return;
@@ -28,6 +30,8 @@ export default function BuyClickButton() {
 	};
 
 	const maxUpgradeClick = () => {
+		if (!canPurchase) return;
+
 		for (let i = 0; i < maxBuy; i++) {
 			dispatch(increaseClickPower());
 		}
