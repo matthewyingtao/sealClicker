@@ -21,10 +21,12 @@ export default function BuildingButton({
 
 	const canPurchase = count >= baseCost;
 
-	const maxBuy = Math.floor(
-		Math.log(1 - (count / state.cost) * (1 - costMultiplier)) /
-			Math.log(costMultiplier)
-	);
+	const maxBuy = canPurchase
+		? Math.floor(
+				Math.log(1 - (count / state.cost) * (1 - costMultiplier)) /
+					Math.log(costMultiplier)
+		  )
+		: 0;
 
 	const purchaseBuilding = () => {
 		if (!canPurchase) return;
@@ -34,6 +36,8 @@ export default function BuildingButton({
 	};
 
 	const purchaseMaxBuilding = () => {
+		if (!canPurchase) return;
+
 		dispatch(purchaseAmount({ id, amount: maxBuy }));
 		dispatch(
 			changeCountBy(
