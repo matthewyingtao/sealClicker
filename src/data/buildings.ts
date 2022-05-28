@@ -11,16 +11,15 @@ export const buildings: Building[] = [
 		name: "Building 1",
 		baseCost: 15,
 		productionSpeed: 1,
-		icon: "../assets/trash.png",
+		icon: new URL("../assets/trash.png", import.meta.url).href,
 	},
 	{
 		name: "Building 2",
 		baseCost: 100,
 		productionSpeed: 5,
-		icon: "../assets/radar.png",
+		icon: new URL("../assets/radar.png", import.meta.url).href,
 	},
 ].map((building, i) => ({
 	...building,
-	icon: new URL(building.icon, import.meta.url).href,
 	id: i,
 }));
