@@ -22,20 +22,20 @@ export const buildings: Building[] = [
 	},
 	{
 		name: "Astolfo Bean",
-		baseCost: 50000,
+		baseCost: 50_000,
 		productionSpeed: 250,
 		icon: new URL("../assets/bean.png", import.meta.url).href,
 	},
 	{
 		name: "Collector",
-		baseCost: 200000,
+		baseCost: 200_000,
 		productionSpeed: 750,
 		icon: new URL("../assets/collector.png", import.meta.url).href,
 	},
 	{
 		name: "Hell",
-		baseCost: 500000,
-		productionSpeed: 1750,
+		baseCost: 500_000,
+		productionSpeed: 1_750,
 		icon: new URL("../assets/fire.png", import.meta.url).href,
 	},
 	{
@@ -46,14 +46,14 @@ export const buildings: Building[] = [
 	},
 	{
 		name: "Beeg Seal",
-		baseCost: 1000000,
-		productionSpeed: 5000,
+		baseCost: 1_000_000,
+		productionSpeed: 5_000,
 		icon: new URL("../assets/plush_seal.png", import.meta.url).href,
 	},
 	{
 		name: "Seal of Hell",
-		baseCost: 5000000,
-		productionSpeed: 20000,
+		baseCost: 5_000_000,
+		productionSpeed: 20_000,
 		icon: new URL("../assets/hell_seal.png", import.meta.url).href,
 	},
 ].map((building, i) => ({

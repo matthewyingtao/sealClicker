@@ -24,12 +24,24 @@ body {
 	padding-top: 4rem;
 	height: 100%;
 	width: 100%;
+	cursor: pointer;
+}
+
+.clickAbsorber {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
 }
 
 .seal {
 	margin: auto;
 	padding-top: 4rem;
 	width: 20rem;
+	transition: transform 300ms cubic-bezier(0.48, -1.01, 0.43, 1.66);
+}
+
+.sealArea:active .seal {
+	transform: scale(0.95);
 }
 
 .countHeader {

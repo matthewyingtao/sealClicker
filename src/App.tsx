@@ -20,19 +20,18 @@ function App() {
 
 	return (
 		<main className="pageWrapper">
-			<section className="sealArea">
+			<section
+				className="sealArea"
+				onClick={() => dispatch(changeCountBy(clickPower))}
+			>
+				<div className="clickAbsorber" />
 				<div className="countHeader">
 					<p className="countPerSecondDisplay">
 						you are making {readableNum(countPerSecond)} seals per second
 					</p>
 					<h1 className="countDisplay">{readableNum(count)}</h1>
 				</div>
-				<img
-					onClick={() => dispatch(changeCountBy(clickPower))}
-					src={sealImage}
-					alt="seal"
-					className="seal"
-				/>
+				<img src={sealImage} alt="seal" className="seal" />
 			</section>
 			<section className="shopList">
 				<BuyClickButton />
