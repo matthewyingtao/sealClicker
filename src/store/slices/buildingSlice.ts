@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { costMultiplier } from "../../config/config";
-import { Building, buildings } from "../../data/buildings";
+import { buildings } from "../../data/buildings";
+import { Building } from "../../shared/buyables";
 
 export type BuildingState = {
 	quantity: number;
@@ -27,16 +28,18 @@ export const buildingSlice = createSlice({
 	initialState,
 	reducers: {
 		purchase: (state, action: PayloadAction<number>) => {
-			state[action.payload].state.quantity += 1;
-			state[action.payload].state.cost =
-				state[action.payload].building.baseCost *
-				Math.pow(costMultiplier, state[action.payload].state.quantity);
+			const { building, state: buildingState } = state[action.payload];
+
+			buildingState.quantity += 1;
+			buildingState.cost =
+				building.baseCost * Math.pow(costMultiplier, buildingState.quantity);
 		},
 		purchaseAmount: (state, action: PayloadAction<MultiBuildingPurchase>) => {
-			state[action.payload.id].state.quantity += action.payload.amount;
-			state[action.payload.id].state.cost =
-				state[action.payload.id].building.baseCost *
-				Math.pow(costMultiplier, state[action.payload.id].state.quantity);
+			const { building, state: buildingState } = state[action.payload.id];
+
+			buildingState.quantity += action.payload.amount;
+			buildingState.cost =
+				building.baseCost * Math.pow(costMultiplier, buildingState.quantity);
 		},
 	},
 });

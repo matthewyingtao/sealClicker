@@ -1,6 +1,9 @@
-import { costMultiplier } from "../config/config";
-import { Building } from "../data/buildings";
 import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
+import {
+	Building,
+	calcBulkBuyPrice,
+	calcMaxBuyAmount,
+} from "../shared/buyables";
 import {
 	BuildingState,
 	purchase,
@@ -17,15 +20,16 @@ export default function BuildingButton({
 }) {
 	const dispatch = useAppDispatch();
 	const count = useAppSelector((state) => state.counter.value);
-	const { name, icon, id, baseCost } = building;
+	const { name, icon, id, baseCost, costMultiplier } = building;
 
 	const canPurchase = count >= baseCost;
 
 	const maxBuy = canPurchase
-		? Math.floor(
-				Math.log(1 - (count / state.cost) * (1 - costMultiplier)) /
-					Math.log(costMultiplier)
-		  )
+		? calcMaxBuyAmount({
+				cost: state.cost,
+				multiplier: costMultiplier,
+				money: count,
+		  })
 		: 0;
 
 	const purchaseBuilding = () => {
@@ -41,7 +45,11 @@ export default function BuildingButton({
 		dispatch(purchaseAmount({ id, amount: maxBuy }));
 		dispatch(
 			changeCountBy(
-				-(state.cost * (1 - costMultiplier ** maxBuy)) / (1 - costMultiplier)
+				-calcBulkBuyPrice({
+					amount: maxBuy,
+					cost: state.cost,
+					multiplier: costMultiplier,
+				})
 			)
 		);
 	};

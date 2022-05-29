@@ -1,10 +1,5 @@
-export type Building = {
-	name: string;
-	baseCost: number;
-	productionSpeed: number;
-	icon: string;
-	id: number;
-};
+import { costMultiplier } from "../config/config";
+import { Building } from "../shared/buyables";
 
 export const buildings: Building[] = [
 	{
@@ -64,4 +59,5 @@ export const buildings: Building[] = [
 ].map((building, i) => ({
 	...building,
 	id: i,
+	costMultiplier: costMultiplier,
 }));

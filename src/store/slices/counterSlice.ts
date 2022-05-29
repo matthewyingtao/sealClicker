@@ -1,4 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { clickUpgrade } from "../../data/clickUpgrade";
+
+const { baseCost, costMultiplier } = clickUpgrade;
+
+const powerIncreaseMulti = 1.1;
 
 interface CounterState {
 	value: number;
@@ -9,7 +14,7 @@ interface CounterState {
 const initialState: CounterState = {
 	value: 0,
 	clickPower: 1,
-	clickUpgradeCost: 50,
+	clickUpgradeCost: baseCost,
 };
 
 export const counterSlice = createSlice({
@@ -22,13 +27,13 @@ export const counterSlice = createSlice({
 		click: (state) => {
 			state.value += state.clickPower;
 		},
-		increaseClickPower: (state) => {
-			state.clickPower = (state.clickPower + 1) * 1.1;
-			state.clickUpgradeCost *= 1.1;
+		purchaseClickUpgrade: (state) => {
+			state.clickPower = (state.clickPower + 1) * powerIncreaseMulti;
+			state.clickUpgradeCost *= costMultiplier;
 		},
 	},
 });
 
-export const { changeCountBy, increaseClickPower } = counterSlice.actions;
+export const { changeCountBy, purchaseClickUpgrade } = counterSlice.actions;
 
 export const counterReducer = counterSlice.reducer;

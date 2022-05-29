@@ -1,12 +1,14 @@
 import clickIcon from "../assets/cursor.png";
-import { costMultiplier } from "../config/config";
+import { clickUpgrade } from "../data/clickUpgrade";
 import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
+import { calcBulkBuyPrice, calcMaxBuyAmount } from "../shared/buyables";
 import {
 	changeCountBy,
-	increaseClickPower,
+	purchaseClickUpgrade,
 } from "../store/slices/counterSlice";
 
 export default function BuyClickButton() {
+	const { costMultiplier, name } = clickUpgrade;
 	const dispatch = useAppDispatch();
 	const { count, cost } = useAppSelector((state) => ({
 		count: state.counter.value,
@@ -16,16 +18,13 @@ export default function BuyClickButton() {
 	const canPurchase = count >= cost;
 
 	const maxBuy = canPurchase
-		? Math.floor(
-				Math.log(1 - (count / cost) * (1 - costMultiplier)) /
-					Math.log(costMultiplier)
-		  )
+		? calcMaxBuyAmount({ cost: cost, multiplier: costMultiplier, money: count })
 		: 0;
 
 	const upgradeClick = () => {
 		if (!canPurchase) return;
 
-		dispatch(increaseClickPower());
+		dispatch(purchaseClickUpgrade());
 		dispatch(changeCountBy(-cost));
 	};
 
@@ -33,11 +32,15 @@ export default function BuyClickButton() {
 		if (!canPurchase) return;
 
 		for (let i = 0; i < maxBuy; i++) {
-			dispatch(increaseClickPower());
+			dispatch(purchaseClickUpgrade());
 		}
 		dispatch(
 			changeCountBy(
-				-(cost * (1 - costMultiplier ** maxBuy)) / (1 - costMultiplier)
+				-calcBulkBuyPrice({
+					amount: maxBuy,
+					cost: cost,
+					multiplier: costMultiplier,
+				})
 			)
 		);
 	};
@@ -47,8 +50,8 @@ export default function BuyClickButton() {
 			<button className="buyOne" onClick={upgradeClick}>
 				<img src={clickIcon} alt={`purchase ${name}`} />
 				<div className="buyText">
-					<p>Upgrade Click</p>
-					<p>upgrade click for ${Math.round(cost)}</p>
+					<p>{name}</p>
+					<p>Upgrade click for ${Math.round(cost)}</p>
 				</div>
 			</button>
 			<button className="buyMany" onClick={maxUpgradeClick}>
