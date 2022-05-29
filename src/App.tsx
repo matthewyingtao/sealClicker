@@ -4,6 +4,7 @@ import BuyClickButton from "./components/BuyClickButton";
 import { useGame } from "./hooks/gameHooks";
 import { useBuildings } from "./hooks/gameHooks/useBuildings";
 import { useAppDispatch, useAppSelector } from "./hooks/storeHooks";
+import { readableNum } from "./shared/utils";
 import { changeCountBy } from "./store/slices/counterSlice";
 
 function App() {
@@ -22,9 +23,9 @@ function App() {
 			<section className="sealArea">
 				<div className="countHeader">
 					<p className="countPerSecondDisplay">
-						you are making {countPerSecond} seals per second
+						you are making {readableNum(countPerSecond)} seals per second
 					</p>
-					<h1 className="countDisplay">{count.toFixed(0)}</h1>
+					<h1 className="countDisplay">{readableNum(count)}</h1>
 				</div>
 				<img
 					onClick={() => dispatch(changeCountBy(clickPower))}

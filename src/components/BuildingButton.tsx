@@ -4,6 +4,7 @@ import {
 	calcBulkBuyPrice,
 	calcMaxBuyAmount,
 } from "../shared/buyables";
+import { readableNum } from "../shared/utils";
 import {
 	BuildingState,
 	purchase,
@@ -61,7 +62,7 @@ export default function BuildingButton({
 				<div className="buyText">
 					<p>{name}</p>
 					<p>
-						buy {name} for ${Math.round(state.cost)} ({state.quantity})
+						buy {name} for ${readableNum(state.cost)} ({state.quantity})
 					</p>
 				</div>
 			</button>

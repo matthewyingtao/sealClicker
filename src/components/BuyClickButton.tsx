@@ -2,6 +2,7 @@ import clickIcon from "../assets/cursor.png";
 import { clickUpgrade } from "../data/clickUpgrade";
 import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
 import { calcBulkBuyPrice, calcMaxBuyAmount } from "../shared/buyables";
+import { readableNum } from "../shared/utils";
 import {
 	changeCountBy,
 	purchaseClickUpgrade,
@@ -51,7 +52,7 @@ export default function BuyClickButton() {
 				<img src={clickIcon} alt={`purchase ${name}`} />
 				<div className="buyText">
 					<p>{name}</p>
-					<p>Upgrade click for ${Math.round(cost)}</p>
+					<p>Upgrade click for ${readableNum(cost)}</p>
 				</div>
 			</button>
 			<button className="buyMany" onClick={maxUpgradeClick}>
